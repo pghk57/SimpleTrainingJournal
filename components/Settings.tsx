@@ -5,9 +5,6 @@ import { translations, Language } from '../translations';
 // --- CONFIGURATION ---
 // Set your email address here (e.g., 'yourname@example.com')
 const DEVELOPER_EMAIL = ''; 
-
-// Set your Buy Me a Coffee profile URL here
-const BUY_ME_A_COFFEE_URL = 'https://www.buymeacoffee.com/yourusername';
 // ---------------------
 
 export type ThemeType = 'light' | 'dark' | 'system';
@@ -44,10 +41,6 @@ export const Settings: React.FC<SettingsProps> = ({ lang, onLangChange, theme, o
     setFeedbackDetails('');
     setIsSent(true);
     setTimeout(() => setIsSent(false), 3000);
-  };
-
-  const handleDonation = () => {
-    window.open(BUY_ME_A_COFFEE_URL, '_blank');
   };
 
   return (
@@ -154,24 +147,6 @@ export const Settings: React.FC<SettingsProps> = ({ lang, onLangChange, theme, o
             )}
           </button>
         </div>
-      </section>
-
-      {/* Donation Section */}
-      <section className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-slate-900 dark:to-amber-900/10 p-6 rounded-2xl shadow-sm border border-amber-100 dark:border-amber-900/30">
-        <h2 className="text-xl font-bold text-amber-900 dark:text-amber-200 mb-2 flex items-center gap-2">
-          <i className="fa-solid fa-heart text-red-500"></i>
-          {t.donation}
-        </h2>
-        <p className="text-amber-800 dark:text-amber-300/80 text-sm mb-6">
-          {t.donateDesc}
-        </p>
-        <button
-          onClick={handleDonation}
-          className="w-full py-4 bg-amber-500 text-white rounded-xl font-bold hover:bg-amber-600 transition-all shadow-lg shadow-amber-200 dark:shadow-none flex items-center justify-center gap-2"
-        >
-          <i className="fa-solid fa-mug-hot"></i>
-          {t.donateButton}
-        </button>
       </section>
     </div>
   );
