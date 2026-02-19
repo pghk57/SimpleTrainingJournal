@@ -1,0 +1,5 @@
+{
+  "name": "Simple Training Journal",
+  "description": "A streamlined fitness tracking application that allows users to record workouts, visualize progress through calendars and pie charts, and track exercise volume with detailed set-by-set recording.",
+  "requestFramePermissions": []
+}
