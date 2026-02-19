@@ -32,7 +32,7 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
   const [date, setDate] = useState(initialSession?.date || initialDate || new Date().toISOString().split('T')[0]);
   const [time, setTime] = useState(initialSession?.time || new Date().toTimeString().split(' ')[0].slice(0, 5));
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
-
+  
   // Modals state
   const [showExModal, setShowExModal] = useState(false);
   const [showTmplModal, setShowTmplModal] = useState(false);
@@ -63,22 +63,16 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
     setExercises(exercises.map(ex => {
       if (ex.id === id) {
         const updatedEx = { ...ex, ...updates };
-        
-        // Handle sync between sets count and repsPerSet array
         if (updatedEx.repsPerSet && updates.sets !== undefined) {
           const newSetsCount = updates.sets;
           const currentRepsArray = [...(updatedEx.repsPerSet || [])];
-          
           if (newSetsCount > currentRepsArray.length) {
-            // Add elements initialized with standard reps
             const diff = newSetsCount - currentRepsArray.length;
             updatedEx.repsPerSet = [...currentRepsArray, ...Array(diff).fill(updatedEx.reps)];
           } else {
-            // Trim elements
             updatedEx.repsPerSet = currentRepsArray.slice(0, newSetsCount);
           }
         }
-        
         return updatedEx;
       }
       return ex;
@@ -89,11 +83,8 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
     setExercises(exercises.map(ex => {
       if (ex.id === exId) {
         if (ex.repsPerSet) {
-          // Switch to standard mode
           return { ...ex, repsPerSet: undefined };
         } else {
-          // Switch to advanced mode
-          // Ensure we have at least one set if sets is 0 to initialize the array
           const initialSets = ex.sets > 0 ? ex.sets : 1;
           return { ...ex, sets: initialSets, repsPerSet: Array(initialSets).fill(ex.reps) };
         }
@@ -162,23 +153,19 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
     });
     setNewTmplName('');
     setShowTmplModal(false);
-    // Visual feedback is inherent as modal closes
   };
 
   const validate = (): boolean => {
     if (exercises.length === 0) return false;
-    
     return exercises.every(ex => {
       const nameValid = ex.name.trim() !== '';
       const setsValid = ex.sets > 0;
       let repsValid = true;
-      
       if (ex.repsPerSet) {
         repsValid = ex.repsPerSet.every(r => r > 0);
       } else {
         repsValid = ex.reps > 0;
       }
-      
       return nameValid && setsValid && repsValid;
     });
   };
@@ -186,7 +173,6 @@ export const WorkoutForm: React.FC<WorkoutFormProps> = ({
   const handleSave = () => {
     setAttemptedSubmit(true);
     if (!validate()) return;
-    
     onSave({
       id: initialSession?.id || Math.random().toString(36).substr(2, 9),
       title: title || t.workout,
