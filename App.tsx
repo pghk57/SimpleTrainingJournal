@@ -213,7 +213,7 @@ const App: React.FC = () => {
                   </div>
                 ))}
                 {sessions.length === 0 && (
-                  <div className="text-center py-12 text-slate-400 dark:text-slate-600">
+                  <div className="text-center py-12 text-slate-400 dark:text-slate-600 whitespace-pre-line">
                     <i className="fa-solid fa-clipboard-list text-4xl mb-4 block opacity-20"></i>
                     {t.emptyJournal}
                   </div>
