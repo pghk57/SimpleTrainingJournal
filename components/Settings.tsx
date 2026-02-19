@@ -4,7 +4,7 @@ import { translations, Language } from '../translations';
 
 // --- CONFIGURATION ---
 // Set your email address here (e.g., 'yourname@example.com')
-const DEVELOPER_EMAIL = ''; 
+const DEVELOPER_EMAIL = 'simpletrainingjournal@gmail.com'; 
 // ---------------------
 
 export type ThemeType = 'light' | 'dark' | 'system';
