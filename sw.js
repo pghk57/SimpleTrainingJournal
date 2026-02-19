@@ -1,9 +1,9 @@
 
-const CACHE_NAME = 'training-journal-v2';
+const CACHE_NAME = 'training-journal-v3';
 const ASSETS_TO_CACHE = [
   './',
-  'index.html',
-  'manifest.json',
+  './index.html',
+  './manifest.json',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
@@ -19,10 +19,12 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Use network-first for navigation requests to avoid stale blank pages
+  // Navigation fallback to handle PWA routing correctly across different server setups
   if (event.request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match('index.html'))
+      fetch(event.request).catch(() => {
+        return caches.match('./index.html') || caches.match('./');
+      })
     );
     return;
   }
