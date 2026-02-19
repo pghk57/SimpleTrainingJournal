@@ -1,9 +1,9 @@
 
-const CACHE_NAME = 'training-journal-v3';
+const CACHE_NAME = 'training-journal-v4';
 const ASSETS_TO_CACHE = [
-  './',
-  './index.html',
-  './manifest.json',
+  '/',
+  '/index.html',
+  '/manifest.json',
   'https://cdn.tailwindcss.com',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
@@ -19,11 +19,11 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // Navigation fallback to handle PWA routing correctly across different server setups
+  // Navigation fallback to handle PWA routing correctly using absolute paths
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(() => {
-        return caches.match('./index.html') || caches.match('./');
+        return caches.match('/index.html') || caches.match('/');
       })
     );
     return;
